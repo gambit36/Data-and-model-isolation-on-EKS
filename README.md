@@ -85,3 +85,16 @@
 我们可以通过EKS console创建EKS集群，在选择网络的时候，我们可以看到从甲方账户共享来的子网。选择这个子网，创建集群。
 
 ![image](eks.png)
+
+由于创建的是一个不能访问互联网的私有集群，所以必须满足以下要求：
+
+* 容器镜像必须位于或者复制到 Amazon Elastic Container Registry (Amazon ECR) 中，或复制到要拉取的 VPC 内部的注册表中。
+* 节点需要端点私有访问权限才能注册到集群端点。终端节点公有访问权限是可选的。
+* 您可能需要包含在私有集群的 VPC 终端节点中找到的 VPC 终端节点。
+* 启动自行管理的节点时，引导参数中必须包含以下文本。此文本绕过 Amazon EKS 自检，不需要从 VPC 内访问 Amazon EKS API。将 <cluster-endpoint> 和 <cluster-certificate-authority> 替换为您的 Amazon EKS 集群中的值。 
+```
+--apiserver-endpoint <cluster-endpoint> --b64-cluster-ca <cluster-certificate-authority>
+```
+* 必须从 VPC 内创建 aws-auth ConfigMap。
+  
+**创建容器映像的本地副本**
