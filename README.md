@@ -29,3 +29,34 @@
 ![image](rtb.png)
 
 我们现在检查下共享出子网的路由表，确定只有本地路由和S3 endpoint路由。如果没有S3 endpoint路由，请创建S3 endpoint。
+
+## 第二步，配置S3 endpoint和存储桶权限
+
+我们需要确保从这个s3 endpoint只能访问到指定的子网。并且也要确定存储桶只能从这个s3 endpoint来访问。
+
+我们先来配置存储桶策略，下面存储桶策略限定了如果要访问DOC-EXAMPLE-BUCKET存储桶，则必须从名为vpce-1111111的S3 endpoint访问。我们把存储桶和s3 endpoint名字都替换为实际名称。
+```
+{
+  "Id": "VPCe",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VPCe",
+      "Action": "s3:*",
+      "Effect": "Deny",
+      "Resource": [
+        "arn:aws:s3:::DOC-EXAMPLE-BUCKET",
+        "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"
+      ],
+      "Condition": {
+        "StringNotEquals": {
+          "aws:SourceVpce": [
+            "vpce-1111111"
+          ]
+        }
+      },
+      "Principal": "*"
+    }
+  ]
+}
+```
