@@ -110,3 +110,25 @@
 5. 使用 docker push [将镜像推送到 Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html)。 
 
 以下示例展示使用标签 v1.3.1-linux-amd64 从 Docker Hub 拉取 [amazon/aws-node-termination-handler](https://hub.docker.com/r/amazon/aws-node-termination-handler) 镜像以及在 Amazon ECR 中创建本地副本。
+
+```
+aws ecr create-repository --repository-name amazon/aws-node-termination-handler
+docker pull amazon/aws-node-termination-handler:v1.3.1-linux-amd64
+docker tag amazon/aws-node-termination-handler <111122223333>.dkr.ecr.<region-code>.amazonaws.com/amazon/aws-node-termination-handler:v1.3.1-linux-amd64
+aws ecr get-login-password --region <region-code> | docker login --username AWS --password-stdin <111122223333>.dkr.ecr.<region-code>.amazonaws.com
+docker push <111122223333>.dkr.ecr.<region-code>.amazonaws.com/amazon/aws-node-termination-handler:v1.3.1-linux-amd64
+```
+  
+**私有集群的 VPC 终端节点**
+可能需要以下 VPC 终端节点。
+* com.amazonaws.<region>.ec2
+* com.amazonaws.<region>.ecr.api
+* com.amazonaws.<region>.ecr.dkr
+* com.amazonaws.<region>.s3 – 用于拉取容器镜像
+* com.amazonaws.<region>.logs – 适用于 CloudWatch Logs
+* com.amazonaws.<region>.sts – 对服务账户使用 AWS Fargate 或 IAM 角色时
+* com.amazonaws.<region>.elasticloadbalancing – 使用 Application Load Balancer 时
+* com.amazonaws.<region>.autoscaling – 使用 Cluster Autoscaler 时
+* com.amazonaws.<region>.appmesh-envoy-management – 使用 App Mesh 时
+
+
