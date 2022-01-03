@@ -60,3 +60,18 @@
   ]
 }
 ```
+继续来配置S3 endpoint权限，下面的权限表示通过这个s3 endpoint，仅可以访问example-bucket存储桶，将example-bucket替换为实际名称。
+```
+{
+  "Effect": "Allow",
+  "Action": [
+     "s3:ListBucket",
+     "s3:GetObject",
+     "s3:PutObject"
+  ],
+  "Resource": [
+     "arn:aws:s3:::example-bucket",
+     "arn:aws:s3:::example-bucket/*"
+  ]
+}	
+```
