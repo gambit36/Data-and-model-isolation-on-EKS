@@ -26,4 +26,6 @@
 
 如上图，输入一个要分享的AWS account ID。
 
+![image](rtb.png)
 
+我们现在检查下共享出子网的路由表，确定只有本地路由和S3 endpoint路由。如果没有S3 endpoint路由，请创建S3 endpoint。
