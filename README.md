@@ -120,7 +120,8 @@ docker push <111122223333>.dkr.ecr.<region-code>.amazonaws.com/amazon/aws-node-t
 ```
   
 **私有集群的 VPC 终端节点**
-可能需要以下 VPC 终端节点。
+
+可能需要以下 VPC 终端节点，请注意，这些终端节点只有甲方账户有权限配置。
 * com.amazonaws.<region>.ec2
 * com.amazonaws.<region>.ecr.api
 * com.amazonaws.<region>.ecr.dkr
@@ -131,4 +132,8 @@ docker push <111122223333>.dkr.ecr.<region-code>.amazonaws.com/amazon/aws-node-t
 * com.amazonaws.<region>.autoscaling – 使用 Cluster Autoscaler 时
 * com.amazonaws.<region>.appmesh-envoy-management – 使用 App Mesh 时
 
+## 第四步，配置AWS Organizations
+  
+由甲方作为Organizations里的root账户创建组织，乙方作为成员加入，具体过程可以参考[这里](https://docs.aws.amazon.com/zh_cn/organizations/latest/userguide/orgs_tutorials_basic.html)
+  
 
