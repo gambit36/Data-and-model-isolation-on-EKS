@@ -136,4 +136,25 @@ docker push <111122223333>.dkr.ecr.<region-code>.amazonaws.com/amazon/aws-node-t
   
 由甲方作为Organizations里的root账户创建组织，乙方作为成员加入，具体过程可以参考[这里](https://docs.aws.amazon.com/zh_cn/organizations/latest/userguide/orgs_tutorials_basic.html)
   
-
+组织创建完成后，由甲方下发SCP策略，比如下面的策略，允许除创建EC2快照以外的所有动作。具体可以根据情况再添加禁止动作。SCP不呢添加权限，仅可以限制最大权限。
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowsAllActions",
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "DenyEBSsnapshot", 
+            "Effect": "Deny",
+            "Action": "ec2:CreateSnapshot",
+            "Resource": "*"
+        }
+    ]
+}
+```
+  
+至此，整个POC完成。
