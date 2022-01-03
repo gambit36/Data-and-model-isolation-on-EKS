@@ -15,11 +15,15 @@
 进入Resource Access Manage服务页面，选择创建新的共享资源。
 
 ![image](ram1.png)
+
 如上图，我们选择指定的子网。
 
 ![image](ram2.png)
+
 如上图，我们可以看到，共享出的子网，对方仅能在上面运行EC2实例，并没有其他权限。
 
 ![image](ram3.png)
+
+如上图，输入一个要分享的AWS account ID。
 
 
