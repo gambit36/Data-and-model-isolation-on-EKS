@@ -10,6 +10,8 @@
 
 ## 第一步，使用Resource Access Manage共享子网
 
+**首先，使用甲方账户操作。**
+
 默认VPC的子网是不能被Resource Access Manage共享的，所以需要新创建一个VPC。
 
 进入Resource Access Manage服务页面，选择创建新的共享资源。
@@ -77,3 +79,9 @@
 ```
 
 ## 第三步，创建EKS集群
+
+**现在切换为乙方账户操作。**
+
+我们可以通过EKS console创建EKS集群，在选择网络的时候，我们可以看到从甲方账户共享来的子网。选择这个子网，创建集群。
+
+！[image](eks.png)
