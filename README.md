@@ -84,4 +84,4 @@
 
 我们可以通过EKS console创建EKS集群，在选择网络的时候，我们可以看到从甲方账户共享来的子网。选择这个子网，创建集群。
 
-！[image](eks.png)
+![image](eks.png)
