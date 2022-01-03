@@ -98,3 +98,15 @@
 * 必须从 VPC 内创建 aws-auth ConfigMap。
   
 **创建容器映像的本地副本**
+  
+由于私有集群没有出站 Internet 访问，因此无法从 Docker Hub 等外部源提取容器映像。相反，容器镜像必须本地复制到 Amazon ECR 或者复制到在 VPC 中可访问的备用注册表。容器镜像可以从私有 VPC 外部复制到 Amazon ECR。私有集群使用 Amazon ECR VPC 端点访问 Amazon ECR 存储库。您必须在用于创建本地副本的工作站上安装了 Docker 和 AWS CLI。
+
+创建容器映像的本地副本
+
+1. 创建 Amazon ECR 存储库。有关更多信息，请参阅[创建存储库](https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html)。
+2. 使用 docker pull 从外部注册表中提取容器映像。
+3. 通过 docker tag，使用 Amazon ECR 注册表、存储库和可选镜像标签名称组合标记您的镜像。
+4. 对注册表进行身份验证。有关更多信息，请参阅[注册表身份验证](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth)。
+5. 使用 docker push [将镜像推送到 Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html)。 
+
+以下示例展示使用标签 v1.3.1-linux-amd64 从 Docker Hub 拉取 [amazon/aws-node-termination-handler](https://hub.docker.com/r/amazon/aws-node-termination-handler) 镜像以及在 Amazon ECR 中创建本地副本。
